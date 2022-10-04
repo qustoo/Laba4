@@ -16,5 +16,7 @@ namespace Laba4
         {
             InitializeComponent();
         }
+
+        //TODO tasks//
     }
 }
