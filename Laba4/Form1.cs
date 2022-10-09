@@ -203,44 +203,37 @@ namespace Laba4
         }
         private (float,float,float) GetCoefficentOfLine(Line line)
         {
-            float X = line.A.Y - line.B.Y;
-            float Y = line.B.X = line.A.X;
-            float Z = line.A.X * line.B.Y - line.B.X * line.A.Y;
-            var result = ( X, Y, Z );
-            return result;
+            float x = line.A.Y - line.B.Y;
+            float y = line.B.X - line.A.X;
+            float z = line.A.X * line.B.Y - line.B.X * line.A.Y;
+            return (x, y, z);
         }
-        private PointApp FindTwoPoint(float X1, float Y1, float X2, float Y2, float Z1, float Z2)
+        private PointApp FindTwoPoint(float X1, float X2, float Y1, float Y2, float Z1, float Z2)
         {
             float x, y;
             var denom = X1 * Y2 - Y1 * X2;
             x = -1 * (Z1 * Y2 - Z2 * Y1) / denom;
             y = -1 * (X1 * Z2 - X2 * Z1) / denom;
-            return new PointApp(x, y);
+            return (new PointApp(x, y));
         }
         private void FindCrossingTwoLines(Line l1, Line l2)
         {
            float A1, B1, C1, A2, B2, C2;
-           var res_coef_1 = GetCoefficentOfLine(l1);
-           A1 = res_coef_1.Item1;
-           B1 = res_coef_1.Item2;
-           C1 = res_coef_1.Item3;
-           var res_coef_2 = GetCoefficentOfLine(l2);
-            A2 = res_coef_2.Item1;
-            B2 = res_coef_2.Item2;
-            C2 = res_coef_2.Item3;
-            var p = FindTwoPoint(A1, A2, B1, B2, C1, C2);
-            if ((p.X >= Math.Min(l1.A.X, l1.B.X)) && (p.X <= Math.Max(l1.A.X, l1.B.X)) &&
+           (A1,B1,C1) = GetCoefficentOfLine((Line)l1);
+           (A2,B2,C2) = GetCoefficentOfLine((Line)l2);
+           var p = FindTwoPoint(A1, A2, B1, B2, C1, C2);
+           if ((p.X >= Math.Min(l1.A.X, l1.B.X)) && (p.X <= Math.Max(l1.A.X, l1.B.X)) &&
                  (p.X >= Math.Min(l2.A.X, l2.B.X)) && (p.X <= Math.Max(l2.A.X, l2.B.X)) &&
                  (p.Y >= Math.Min(l1.A.Y, l1.B.Y)) && (p.Y <= Math.Max(l1.A.Y, l1.B.Y)) &&
                  (p.Y >= Math.Min(l2.A.Y, l2.B.Y)) && (p.Y <= Math.Max(l2.A.Y, l2.B.Y)))
-            {
+           {
                 g.FillEllipse(new SolidBrush(Color.Yellow), p.X - 3, p.Y - 3, 6, 6);
                 pictureBox1.Refresh();
-            }
-            else
-            {
+           }
+           else
+           {
                 MessageBox.Show("Нет общей точки");
-            }
+           }
         }
 
 
