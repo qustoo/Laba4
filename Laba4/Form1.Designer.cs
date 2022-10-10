@@ -1,4 +1,3 @@
-﻿
 namespace Laba4
 {
     partial class Form1
@@ -59,6 +58,8 @@ namespace Laba4
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -74,7 +75,7 @@ namespace Laba4
             // 
             this.button_clear_canvas.Location = new System.Drawing.Point(12, 12);
             this.button_clear_canvas.Name = "button_clear_canvas";
-            this.button_clear_canvas.Size = new System.Drawing.Size(200, 23);
+            this.button_clear_canvas.Size = new System.Drawing.Size(214, 23);
             this.button_clear_canvas.TabIndex = 1;
             this.button_clear_canvas.Text = "Очистить канвас";
             this.button_clear_canvas.UseVisualStyleBackColor = true;
@@ -95,7 +96,7 @@ namespace Laba4
             // selectedPrm
             // 
             this.selectedPrm.AutoSize = true;
-            this.selectedPrm.Location = new System.Drawing.Point(30, 19);
+            this.selectedPrm.Location = new System.Drawing.Point(37, 19);
             this.selectedPrm.Name = "selectedPrm";
             this.selectedPrm.Size = new System.Drawing.Size(121, 17);
             this.selectedPrm.TabIndex = 4;

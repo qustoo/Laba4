@@ -238,22 +238,6 @@ namespace Laba4
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         private void afin_submit_Click(object sender, EventArgs e){
             if (this.SelectedPrim == null){
                 MessageBox.Show("Выберите фигуру!");
