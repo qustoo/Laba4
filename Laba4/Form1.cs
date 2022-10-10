@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Laba4.Primitives;
+using System.Globalization;
 
 namespace Laba4
 {
@@ -237,7 +238,162 @@ namespace Laba4
         }
 
 
+        private void afin_submit_Click(object sender, EventArgs e){
+            if (this.SelectedPrim == null){
+                MessageBox.Show("Выберите фигуру!");
+                return;
+            }
 
-        //TODO tasks//
-    }
+            Transform t = new Transform(SelectedPrim);
+
+            t.Move(int.Parse(move_x_input.Text), int.Parse(move_y_input.Text));
+            t.Scale(float.Parse(scale_x_input.Text, CultureInfo.InvariantCulture), float.Parse(scale_y_input.Text, CultureInfo.InvariantCulture));
+            t.Rotate(float.Parse(rotate_input.Text, CultureInfo.InvariantCulture));
+
+            if (SelectedPrim is PointApp){
+                points.Remove((PointApp)SelectedPrim);
+                PointApp p = t.points[0];
+                points.Add(p);
+                SelectedPrim = p;
+            }
+
+            if (SelectedPrim is Line){
+                lines.Remove((Line)SelectedPrim);
+                Line l = new Line(t.points[0], t.points[1]);
+                lines.Add(l);
+                SelectedPrim = l;
+            }
+
+            if (SelectedPrim is Polygon){
+                polygons.Remove((Polygon)SelectedPrim);
+                Polygon poly = new Polygon(t.points);
+                polygons.Add(poly);
+                SelectedPrim = poly;
+            }
+            Redraw();
+        }
+
+
+
+
+
+        class Transform{
+            public List<PointApp> points;
+
+            public Transform(IPrimitive p){
+                points = new List<PointApp>();
+
+                if (p is Line){
+                    Line l = (Line)p;
+                    points.Add(l.A);
+                    points.Add(l.B);
+                }
+                else if (p is PointApp)
+                {
+                    PointApp pa = (PointApp)p;
+                    points.Add(pa);
+                }
+                else if (p is Polygon)
+                {
+                    Polygon pl = (Polygon)p;
+                    foreach (PointApp point in pl.Points){
+                        points.Add(point);
+                    }
+                }
+            }
+
+            public void Move(int dx, int dy){
+                List<PointApp> MoveList = new List<PointApp>();
+                int[] MoveMatrix = new int[9] { 1, 0, 0, 
+                                                0, 1, 0, 
+                                                dx, dy, 1 };
+                
+                foreach(PointApp point in points){
+                    float[] point_matrix = new float[3] { point.X, point.Y, 1 };
+                    float[] res_point = new float[2];
+
+                    for(int i = 0; i < 2; i += 1){
+                        for (int j = 0; j < 3; j += 1){
+                            res_point[i] += point_matrix[j] * MoveMatrix[i + j * 3];
+                        }
+                    }
+
+                    MoveList.Add(new PointApp(res_point[0], res_point[1]));
+                }
+
+                points = MoveList;
+            }
+
+
+            public void Rotate(float alpha){
+                alpha = (float)((Math.PI * alpha) / 180);
+                float[] center = new float[3];
+                List<PointApp> RotateList = new List<PointApp>();
+
+                foreach (PointApp point in points){
+                    center[0] += point.X;
+                    center[1] += point.Y;
+                }
+                center[0] /= points.Count();
+                center[1] /= points.Count();
+                center[2] = 0;
+
+                float[] RotateMatrix = new float[9] { (float)Math.Cos(alpha),         (float)Math.Sin(alpha),    0,
+                                                      (float)Math.Sin(alpha) * -1,    (float)Math.Cos(alpha),    0,
+                                                      center[0],                      center[1],                 1 };
+
+
+
+                foreach (PointApp point in points)
+                {
+                    float[] point_matrix = new float[3] { point.X, point.Y, 1 };
+                    float[] res_point = new float[2];
+
+                    for (int i = 0; i < 2; i += 1){
+                        for (int j = 0; j < 3; j += 1){
+                            res_point[i] += (point_matrix[j] - center[j]) * RotateMatrix[i + j * 3];
+                        }
+                    }
+
+                    RotateList.Add(new PointApp(res_point[0], res_point[1]));
+                }
+
+                points = RotateList;
+            }
+
+            public void Scale(float sx, float sy){
+                List<PointApp> ScaleList = new List<PointApp>();
+                float[] center = new float[3];
+                foreach (PointApp point in points)
+                {
+                    center[0] += point.X;
+                    center[1] += point.Y;
+                }
+                center[0] /= points.Count();
+                center[1] /= points.Count();
+                center[2] = 0;
+
+                float[] ScaleMatrix = new float[9] { sx,         0,          0,
+                                                     0,          sy,         0,
+                                                     center[0],  center[1],  1 };
+
+                foreach (PointApp point in points){
+                    float[] point_matrix = new float[3] { point.X, point.Y, 1 };
+                    float[] res_point = new float[2];
+
+                    for (int i = 0; i < 2; i += 1){
+                        for (int j = 0; j < 3; j += 1){
+                            res_point[i] += (point_matrix[j] - center[j]) * ScaleMatrix[i + j * 3];
+                        }
+                    }
+
+                    ScaleList.Add(new PointApp(res_point[0], res_point[1]));
+                }
+
+                points = ScaleList;
+            }
+        }
+    }    
 }
+
+
