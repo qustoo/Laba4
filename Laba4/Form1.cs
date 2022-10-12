@@ -577,7 +577,7 @@ namespace Laba4
                     }
                 }
                 label_point_in_plg.Text = "Да";
-            }
+            }            
         }
     }    
 }
