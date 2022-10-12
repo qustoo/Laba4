@@ -12,7 +12,6 @@ namespace Laba4.Primitives
         interface IPrimivite
         {
             void Draw(Graphics g, bool selected);
-            void Transform(Transformation t);
         }
     }
 }
