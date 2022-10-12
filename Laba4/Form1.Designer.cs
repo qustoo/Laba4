@@ -54,6 +54,7 @@ namespace Laba4
             this.move_x_input = new System.Windows.Forms.TextBox();
             this.button_point_in_plg = new System.Windows.Forms.Button();
             this.label_point_in_plg = new System.Windows.Forms.Label();
+            this.button_distance_from_line_to_point = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -161,6 +162,7 @@ namespace Laba4
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button_distance_from_line_to_point);
             this.groupBox2.Controls.Add(this.groupBox5);
             this.groupBox2.Controls.Add(this.groupBox4);
             this.groupBox2.Controls.Add(this.afin_submit);
@@ -261,7 +263,7 @@ namespace Laba4
             // 
             this.afin_submit.Location = new System.Drawing.Point(6, 242);
             this.afin_submit.Name = "afin_submit";
-            this.afin_submit.Size = new System.Drawing.Size(188, 23);
+            this.afin_submit.Size = new System.Drawing.Size(95, 42);
             this.afin_submit.TabIndex = 1;
             this.afin_submit.Text = "Применить";
             this.afin_submit.UseVisualStyleBackColor = true;
@@ -337,6 +339,16 @@ namespace Laba4
             this.label_point_in_plg.TabIndex = 6;
             this.label_point_in_plg.Text = "-";
             // 
+            // button_distance_from_line_to_point
+            // 
+            this.button_distance_from_line_to_point.Location = new System.Drawing.Point(107, 242);
+            this.button_distance_from_line_to_point.Name = "button_distance_from_line_to_point";
+            this.button_distance_from_line_to_point.Size = new System.Drawing.Size(87, 42);
+            this.button_distance_from_line_to_point.TabIndex = 6;
+            this.button_distance_from_line_to_point.Text = "Точка от отрезка";
+            this.button_distance_from_line_to_point.UseVisualStyleBackColor = true;
+            this.button_distance_from_line_to_point.Click += new System.EventHandler(this.button_distance_from_line_to_point_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -396,6 +408,7 @@ namespace Laba4
         private System.Windows.Forms.TextBox rotate_input;
         private System.Windows.Forms.Button button_point_in_plg;
         private System.Windows.Forms.Label label_point_in_plg;
+        private System.Windows.Forms.Button button_distance_from_line_to_point;
     }
 }
 

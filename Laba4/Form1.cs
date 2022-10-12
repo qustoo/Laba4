@@ -83,14 +83,14 @@ namespace Laba4
             {
                 foreach(var item in points)
                 {
-                    if(item.X - p.X > -5 && item.X - p.X < 5)
+                    if(item.X - p.X > -8 && item.X - p.X < 8) // область от нажатия чтобы выделился примитив, в районе 5 пикселей
                     {
                         this.SelectedPrim = (IPrimitive)item;
                     }
                 }
                 foreach(var item in lines)
                 {
-                    if(item.Distance(p) > -5 && item.Distance(p) < 5)
+                    if(item.Distance(p) > -8 && item.Distance(p) < 8) // область от нажатия чтобы выделился примитив, в районе 5 пикселей
                     {
                         this.SelectedPrim = (IPrimitive)item;
                     }
@@ -108,7 +108,7 @@ namespace Laba4
                         {
                             l = new Line(item.Points[i], item.Points[i + 1]);                           
                         }
-                        if (l.Distance(p) > -5 && l.Distance(p) < 5)
+                        if (l.Distance(p) > -8 && l.Distance(p) < 8)
                         {
                             this.SelectedPrim = (IPrimitive)item;
                         }                       
@@ -120,6 +120,7 @@ namespace Laba4
                 }
                 if (SelectedPrimitive is Line)
                 {
+                    //MessageBox.Show("Line selected");
                     priviosLine = lastLine;
                     lastLine = (Line)SelectedPrimitive;
                 }
@@ -169,9 +170,44 @@ namespace Laba4
             {
                 LineFirstPoint.Draw(g, false);
             }
-            this.points.ForEach((p) => p.Draw(g, p == SelectedPrimitive));
-            this.lines.ForEach((p) => p.Draw(g, p == SelectedPrimitive));
-            this.polygons.ForEach((p) => p.Draw(g, p == SelectedPrimitive));
+
+            //печать всех точек, если точка только что нарисована - она выбрана, и она красная, иначе - черная
+            foreach(var p in points)
+            {
+                if (p == SelectedPrimitive)
+                {
+                    p.Draw(g,true);
+                }
+                else
+                {
+                    p.Draw(g, false);
+                }
+                
+            }
+            // печать всех линий, если линия только что нарисована - она выбрана, и она красная, иначе - черная
+            foreach (var line in lines)
+            {
+                if (line == SelectedPrimitive)
+                {
+                    line.Draw(g, true);
+                }
+                else
+                {
+                    line.Draw(g, false);
+                }
+            }
+            // печать полигона, если полигон только что нарисован - он выбран, и он красный, иначе - черный
+            foreach (var poly in polygons)
+            {
+                if(poly == SelectedPrimitive)
+                {
+                    poly.Draw(g, true);
+                }
+                else
+                {
+                    poly.Draw(g, false);
+                }
+            }
             pictureBox1.Invalidate();
         }
 
@@ -188,7 +224,7 @@ namespace Laba4
             }
             else
             {
-                Line line1 = this.priviosLine;
+                Line line1 = this.priviosLine; // предыдущая выбранная линия от последней выбранной линии
                 Line line2 = this.lastLine; // последняя линия
                 if(line1 == null && line2== null)
                 {
@@ -207,7 +243,7 @@ namespace Laba4
             float x = line.A.Y - line.B.Y;
             float y = line.B.X - line.A.X;
             float z = line.A.X * line.B.Y - line.B.X * line.A.Y;
-            return (x, y, z);
+            return (x, y, z); // кортеж коэффицентов
         }
         private PointApp FindTwoPoint(float X1, float X2, float Y1, float Y2, float Z1, float Z2)
         {
@@ -578,6 +614,26 @@ namespace Laba4
                 }
                 label_point_in_plg.Text = "Да";
             }            
+        }
+
+        private void button_distance_from_line_to_point_Click(object sender, EventArgs e)
+        {
+            if(this.priviosLine == null || this.lastPoint == null)
+            {
+                MessageBox.Show("Выберите точку и отрезок!");
+            }
+            else
+            {
+                if (priviosLine.Distance(lastPoint) < 0)
+                {
+                    MessageBox.Show("Точка слева от прямой!");
+                }
+                else
+                {
+                    MessageBox.Show("Точка справа от прямой!");
+                }
+            }
+
         }
     }    
 }
