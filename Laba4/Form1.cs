@@ -573,46 +573,19 @@ namespace Laba4
                 label_point_in_plg.Text = "Выберите точку";
             else
             {
-                float D1;
-                float D2 = 0;
-                for (int p = 0; p < poly.Points.Count - 1; p++)
+                bool result = false;
+                int j = poly.Points.Count - 1;
+                for (int i = 0; i < poly.Points.Count; i++)
                 {
-                    PointApp p1 = poly.Points[p];
-                    PointApp p2 = poly.Points[p + 1];
-                    if (p1.X < p2.X)
-                    {
-                        p2.X -= p1.X;
-                        p2.Y -= p1.Y;
-                        p1 = new PointApp(0, 0);//сдвиг в начало координат
-                        p2.Y *= -1;
-                        point.X -= p1.X;
-                        point.Y -= p1.Y;
-                        point.Y *= -1;
-
-                        D1 = D2;
-                        D2 = (point.Y * p2.X) - (point.X * p2.Y);
-                    }
-                    else
-                    {
-                        p1.X -= p2.X;
-                        p1.Y -= p2.Y;
-                        p2 = new PointApp(0, 0);
-                        p1.Y *= -1;
-                        point.X -= p2.X;
-                        point.Y -= p2.Y;
-                        point.Y *= -1;
-
-                        D1 = D2;
-                        D2 = (point.Y * p1.X) - (point.X * p1.Y);
-                    }
-
-                    if (D1 * D2 > 0)//если D только +/- то точка внутри
-                    {
-                        label_point_in_plg.Text = "Нет";
-                        return;
-                    }
+                    if ((poly.Points[i].Y < point.Y && poly.Points[j].Y >= point.Y || poly.Points[j].Y < point.Y && poly.Points[i].Y >= point.Y) &&
+                    (poly.Points[i].X + (point.Y - poly.Points[i].Y) / (poly.Points[j].Y - poly.Points[i].Y) * (poly.Points[j].X - poly.Points[i].X) < point.X))
+                        result = !result;
+                    j = i;
                 }
-                label_point_in_plg.Text = "Да";
+                if (result)
+                    label_point_in_plg.Text = "Да";
+                else
+                    label_point_in_plg.Text = "Нет";
             }            
         }
 
