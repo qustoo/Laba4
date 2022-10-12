@@ -628,9 +628,13 @@ namespace Laba4
                 {
                     MessageBox.Show("Точка слева от прямой!");
                 }
-                else
+                if (priviosLine.Distance(lastPoint) < 0)
                 {
                     MessageBox.Show("Точка справа от прямой!");
+                }
+                else
+                {
+                    MessageBox.Show("Точка на ребре!");
                 }
             }
 
