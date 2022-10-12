@@ -393,6 +393,192 @@ namespace Laba4
                 points = ScaleList;
             }
         }
+
+        private void button_point_in_plg_Click(object sender, EventArgs e)
+        {
+            IsConvex();
+        }
+
+        private void IsConvex()
+        {
+            float zcrossproduct1 = 0;
+            float zcrossproduct2 = 0;
+            bool convex = true;
+
+            Polygon poly;
+            if (SelectedPrim is Polygon)
+                poly = (Polygon)SelectedPrim;
+            else
+                poly = lastPolygon;
+
+            if (poly == null)
+            {
+                label_point_in_plg.Text = "Выберите многоугольник";
+                return;
+            }
+
+            for (int p = 0; p < poly.Points.Count - 2; p++)//z-компонентa перекрестного произведения векторов
+            {
+                PointApp p1 = poly.Points[p];
+                PointApp p2 = poly.Points[p + 1];
+                PointApp p3 = poly.Points[p + 2];
+                float dx1 = p2.X - p1.X;
+                float dy1 = p2.Y - p1.Y;
+                float dx2 = p3.X - p2.X;
+                float dy2 = p3.Y - p2.Y;
+                zcrossproduct1 = zcrossproduct2;
+                zcrossproduct2 = dx1 * dy2 - dy1 * dx2;
+                if (zcrossproduct1 * zcrossproduct2 < 0)
+                {
+                    convex = false;
+                    NotConvexPolygon(poly);
+                }
+                if (p == poly.Points.Count - 3)
+                {
+                    p1 = p2;
+                    p2 = p3;
+                    p3 = poly.Points[0];
+                    dx1 = p2.X - p1.X;
+                    dy1 = p2.Y - p1.Y;
+                    dx2 = p3.X - p2.X;
+                    dy2 = p3.Y - p2.Y;
+                    zcrossproduct1 = zcrossproduct2;
+                    zcrossproduct2 = dx1 * dy2 - dy1 * dx2;
+                    if (zcrossproduct1 * zcrossproduct2 < 0)
+                    {
+                        convex = false;
+                        NotConvexPolygon(poly);
+                    }
+                }
+            }
+
+            if (convex)
+                ConvexPolygon(poly);
+        }
+
+        private void NotConvexPolygon(Polygon poly)
+        {
+            PointApp point;
+            if (SelectedPrim is PointApp)
+                point = (PointApp)SelectedPrim;
+            else
+                point = lastPoint;
+
+            int count_cross = 0;
+            if (point == null)
+                label_point_in_plg.Text = "Выберите точку";
+            else
+            {
+                Line line1;
+                //если луч пересекает вершину, смещаем его чуть наверх
+                bool b = false;
+                foreach (PointApp p in poly.Points)
+                    if (point.Y == p.Y)
+                        b = true;
+                if (b)
+                    line1 = new Line(new PointApp(point.X, point.Y + 2), new PointApp(pictureBox1.Width - 1, point.Y + 2));
+                else
+                    line1 = new Line(new PointApp(point.X, point.Y), new PointApp(pictureBox1.Width - 1, point.Y));
+
+                for (int p = 0; p < poly.Points.Count - 1; p++)
+                {
+                    Line line2 = new Line(poly.Points[p], poly.Points[p + 1]);
+                    if (LinesAreCrossing(line1, line2))
+                    {
+                        count_cross++;
+                    }
+                    if (p == poly.Points.Count - 2)
+                    {
+                        line2 = new Line(poly.Points[0], poly.Points[p + 1]);
+                        if (LinesAreCrossing(line1, line2))
+                        {
+                            count_cross++;
+                        }
+                    }
+                }
+                if (count_cross % 2 == 0)
+                    label_point_in_plg.Text = "нет";
+                else
+                    label_point_in_plg.Text = "да";
+            }
+        }
+
+        private bool LinesAreCrossing(Line l1, Line l2)
+        {
+            float A1, B1, C1, A2, B2, C2;
+            (A1, B1, C1) = GetCoefficentOfLine((Line)l1);
+            (A2, B2, C2) = GetCoefficentOfLine((Line)l2);
+            var p = FindTwoPoint(A1, A2, B1, B2, C1, C2);
+            if ((p.X >= Math.Min(l1.A.X, l1.B.X)) && (p.X <= Math.Max(l1.A.X, l1.B.X)) &&
+                  (p.X >= Math.Min(l2.A.X, l2.B.X)) && (p.X <= Math.Max(l2.A.X, l2.B.X)) &&
+                  (p.Y >= Math.Min(l1.A.Y, l1.B.Y)) && (p.Y <= Math.Max(l1.A.Y, l1.B.Y)) &&
+                  (p.Y >= Math.Min(l2.A.Y, l2.B.Y)) && (p.Y <= Math.Max(l2.A.Y, l2.B.Y)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
+        private void ConvexPolygon(Polygon poly)
+        {
+            label_point_in_plg.Text = "Выпуклый";
+            PointApp point;
+            if (SelectedPrim is PointApp)
+                point = (PointApp)SelectedPrim;
+            else
+                point = lastPoint;
+
+            if (point == null)
+                label_point_in_plg.Text = "Выберите точку";
+            else
+            {
+                float D1;
+                float D2 = 0;
+                for (int p = 0; p < poly.Points.Count - 1; p++)
+                {
+                    PointApp p1 = poly.Points[p];
+                    PointApp p2 = poly.Points[p + 1];
+                    if (p1.X < p2.X)
+                    {
+                        p2.X -= p1.X;
+                        p2.Y -= p1.Y;
+                        p1 = new PointApp(0, 0);//сдвиг в начало координат
+                        p2.Y *= -1;
+                        point.X -= p1.X;
+                        point.Y -= p1.Y;
+                        point.Y *= -1;
+
+                        D1 = D2;
+                        D2 = (point.Y * p2.X) - (point.X * p2.Y);
+                    }
+                    else
+                    {
+                        p1.X -= p2.X;
+                        p1.Y -= p2.Y;
+                        p2 = new PointApp(0, 0);
+                        p1.Y *= -1;
+                        point.X -= p2.X;
+                        point.Y -= p2.Y;
+                        point.Y *= -1;
+
+                        D1 = D2;
+                        D2 = (point.Y * p1.X) - (point.X * p1.Y);
+                    }
+
+                    if (D1 * D2 > 0)//если D только +/- то точка внутри
+                    {
+                        label_point_in_plg.Text = "Нет";
+                        return;
+                    }
+                }
+                label_point_in_plg.Text = "Да";
+            }            
+        }
     }    
 }
 

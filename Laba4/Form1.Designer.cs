@@ -38,12 +38,28 @@ namespace Laba4
             this.button_create_new_polygon = new System.Windows.Forms.Button();
             this.button_find_crossing_lines = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.rotate_input = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.scale_y_input = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.scale_x_input = new System.Windows.Forms.TextBox();
             this.afin_submit = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.move_y_input = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.move_x_input = new System.Windows.Forms.TextBox();
+            this.button_point_in_plg = new System.Windows.Forms.Button();
+            this.label_point_in_plg = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.scale_y_input = new System.Windows.Forms.TextBox();
@@ -64,6 +80,10 @@ namespace Laba4
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Location = new System.Drawing.Point(309, 15);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(741, 645);
             this.pictureBox1.Location = new System.Drawing.Point(232, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(556, 524);
@@ -171,6 +191,91 @@ namespace Laba4
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Афинные преобразования";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label6);
+            this.groupBox5.Controls.Add(this.rotate_input);
+            this.groupBox5.Location = new System.Drawing.Point(8, 220);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Size = new System.Drawing.Size(251, 69);
+            this.groupBox5.TabIndex = 5;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Поворот (в градусах)";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(8, 32);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(14, 16);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "α";
+            // 
+            // rotate_input
+            // 
+            this.rotate_input.Location = new System.Drawing.Point(32, 28);
+            this.rotate_input.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rotate_input.Name = "rotate_input";
+            this.rotate_input.Size = new System.Drawing.Size(52, 22);
+            this.rotate_input.TabIndex = 0;
+            this.rotate_input.Text = "0";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label3);
+            this.groupBox4.Controls.Add(this.scale_y_input);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.scale_x_input);
+            this.groupBox4.Location = new System.Drawing.Point(8, 126);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Size = new System.Drawing.Size(251, 69);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Маштабирование";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(112, 32);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(14, 16);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "y";
+            // 
+            // scale_y_input
+            // 
+            this.scale_y_input.Location = new System.Drawing.Point(135, 28);
+            this.scale_y_input.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scale_y_input.Name = "scale_y_input";
+            this.scale_y_input.Size = new System.Drawing.Size(52, 22);
+            this.scale_y_input.TabIndex = 2;
+            this.scale_y_input.Text = "1";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 32);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(13, 16);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "x";
+            // 
+            // scale_x_input
+            // 
+            this.scale_x_input.Location = new System.Drawing.Point(32, 28);
+            this.scale_x_input.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scale_x_input.Name = "scale_x_input";
+            this.scale_x_input.Size = new System.Drawing.Size(52, 22);
+            this.scale_x_input.TabIndex = 0;
+            this.scale_x_input.Text = "1";
+            //
             // afin_submit
             // 
             this.afin_submit.Location = new System.Drawing.Point(6, 261);
@@ -187,9 +292,11 @@ namespace Laba4
             this.groupBox3.Controls.Add(this.move_y_input);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.move_x_input);
-            this.groupBox3.Location = new System.Drawing.Point(6, 20);
+            this.groupBox3.Location = new System.Drawing.Point(8, 25);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(188, 56);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Size = new System.Drawing.Size(251, 69);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Перемещение";
@@ -205,9 +312,10 @@ namespace Laba4
             // 
             // move_y_input
             // 
-            this.move_y_input.Location = new System.Drawing.Point(101, 23);
+            this.move_y_input.Location = new System.Drawing.Point(135, 28);
+            this.move_y_input.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.move_y_input.Name = "move_y_input";
-            this.move_y_input.Size = new System.Drawing.Size(40, 20);
+            this.move_y_input.Size = new System.Drawing.Size(52, 22);
             this.move_y_input.TabIndex = 2;
             this.move_y_input.Text = "0";
             // 
@@ -220,8 +328,28 @@ namespace Laba4
             this.label1.TabIndex = 1;
             this.label1.Text = "x";
             // 
-            // move_x_input
+            // button_point_in_plg
             // 
+            this.button_point_in_plg.Location = new System.Drawing.Point(16, 258);
+            this.button_point_in_plg.Name = "button_point_in_plg";
+            this.button_point_in_plg.Size = new System.Drawing.Size(188, 47);
+            this.button_point_in_plg.TabIndex = 5;
+            this.button_point_in_plg.Text = "Точка внутри многоугольника?";
+            this.button_point_in_plg.UseVisualStyleBackColor = true;
+            this.button_point_in_plg.Click += new System.EventHandler(this.button_point_in_plg_Click);
+            // 
+            // label_point_in_plg
+            // 
+            this.label_point_in_plg.AutoSize = true;
+            this.label_point_in_plg.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label_point_in_plg.Location = new System.Drawing.Point(210, 273);
+            this.label_point_in_plg.Name = "label_point_in_plg";
+            this.label_point_in_plg.Size = new System.Drawing.Size(16, 24);
+            this.label_point_in_plg.TabIndex = 6;
+            this.label_point_in_plg.Text = "-";
+            //
+            //move_x_input
+            //
             this.move_x_input.Location = new System.Drawing.Point(24, 23);
             this.move_x_input.Name = "move_x_input";
             this.move_x_input.Size = new System.Drawing.Size(40, 20);
@@ -308,25 +436,29 @@ namespace Laba4
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 548);
+            this.Controls.Add(this.label_point_in_plg);
+            this.Controls.Add(this.button_point_in_plg);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button_find_crossing_lines);
             this.Controls.Add(this.button_create_new_polygon);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_clear_canvas);
             this.Controls.Add(this.pictureBox1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -356,6 +488,8 @@ namespace Laba4
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox rotate_input;
+        private System.Windows.Forms.Button button_point_in_plg;
+        private System.Windows.Forms.Label label_point_in_plg;
     }
 }
 
