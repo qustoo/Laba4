@@ -449,7 +449,7 @@ namespace Laba4
 
             if (poly == null)
             {
-                label_point_in_plg.Text = "Выберите многоугольник";
+                MessageBox.Show("Выберите многоугольник");
                 return;
             }
 
@@ -502,7 +502,7 @@ namespace Laba4
 
             int count_cross = 0;
             if (point == null)
-                label_point_in_plg.Text = "Выберите точку";
+                MessageBox.Show("Выберите точку!");
             else
             {
                 Line line1;
@@ -532,10 +532,8 @@ namespace Laba4
                         }
                     }
                 }
-                if (count_cross % 2 == 0)
-                    label_point_in_plg.Text = "нет";
-                else
-                    label_point_in_plg.Text = "да";
+                MessageBox.Show(count_cross % 2 == 0 ? "Точка не внутри многоугольника!" : "Точка внутри многоугольника!");
+                    
             }
         }
 
@@ -562,7 +560,7 @@ namespace Laba4
 
         private void ConvexPolygon(Polygon poly)
         {
-            label_point_in_plg.Text = "Выпуклый";
+            //MessageBox.Show("Выпуклый");
             PointApp point;
             if (SelectedPrim is PointApp)
                 point = (PointApp)SelectedPrim;
@@ -570,7 +568,7 @@ namespace Laba4
                 point = lastPoint;
 
             if (point == null)
-                label_point_in_plg.Text = "Выберите точку";
+                MessageBox.Show("Выберите точку");
             else
             {
                 bool result = false;
@@ -583,9 +581,9 @@ namespace Laba4
                     j = i;
                 }
                 if (result)
-                    label_point_in_plg.Text = "Да";
+                    MessageBox.Show("Да");
                 else
-                    label_point_in_plg.Text = "Нет";
+                    MessageBox.Show("Нет");
             }            
         }
 
