@@ -9,8 +9,8 @@ namespace Laba4.Primitives
 {
     class PointApp : IPrimitive
     {
-        private float size = 6; // толщина точек
-        private float[] coordinates = new float[] { 0, 0, 1 }; //x,y,z
+        private float size = 6; // толщина для рисования
+        private float[] coordinates = new float[] { 0, 0 } ; //x,y
         public float X
         {
             get
